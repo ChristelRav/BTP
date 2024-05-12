@@ -1,0 +1,5 @@
+CREATE USER btpu WITH PASSWORD 'prom15';
+CREATE DATABASE btp;
+GRANT ALL PRIVILEGES ON DATABASE btp TO btpu;
+
+psql -U btpu -d btp
