@@ -85,3 +85,9 @@ INSERT INTO devis (id_sous_travaux, id_maison, quantite) VALUES
 (8, 7, 1), -- 300
 (7, 7, 1); -- 1400
 
+-- Insérer des données dans la table "travaux client"
+INSERT INTO travaux_client (id_devis_client, id_sous_travaux, prix_unit, quantite)
+VALUES
+    (1, 1, 5120, 1),
+    (1, 3, 310, 1),
+    (1, 2, 370, 1);

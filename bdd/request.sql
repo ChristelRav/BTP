@@ -57,5 +57,11 @@ SELECT SUM(d.quantite * st.prix_unit), m.id_maison, m.type_maison, m.caracterist
 FROM maison m
 JOIN devis d ON d.id_maison = m.id_maison
 JOIN sous_travaux st ON d.id_sous_travaux = st.id_sous_travaux
-WHERE m.id_maison = 1
 GROUP BY m.id_maison, m.type_maison, m.caracteristique, m.duree;
+
+SELECT st.num_sous_travaux,tv.id_sous_travaux,st.sous_travaux,st.unite,tv.quantite,tv.prix_unit,st.id_travaux,t.travaux,(tv.quantite*tv.prix_unit)  as total
+FROM travaux_client tv
+JOIN devis_client dc ON dc.id_devis_client = tv.id_devis_client
+JOIN sous_travaux st ON tv.id_sous_travaux = st.id_sous_travaux
+JOIN travaux t ON t.id_travaux = st.id_travaux
+where tv.id_devis_client =1;
