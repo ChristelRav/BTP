@@ -37,6 +37,7 @@ CREATE TABLE travaux (
 CREATE TABLE sous_travaux (
     id_sous_travaux SERIAL PRIMARY KEY,
     id_travaux INT REFERENCES travaux(id_travaux),
+    num_sous_travaux VARCHAR(10),
     sous_travaux TEXT,
     unite VARCHAR(10),
     prix_unit DOUBLE PRECISION
@@ -57,7 +58,16 @@ CREATE TABLE devis_client (
     date_creation DATE DEFAULT current_date,
     date_debut DATE,
     date_fin DATE,
-    etat INT DEFAULT 1
+    etat INT DEFAULT 1,
+    pourcentage DOUBLE PRECISION
+);
+
+CREATE TABLE travaux_client (
+    id_travaux_client SERIAL PRIMARY KEY,
+    id_devis_client INT REFERENCES devis_client(id_devis_client),
+    id_sous_travaux INT REFERENCES sous_travaux(id_sous_travaux),
+    prix_unit DOUBLE PRECISION,
+    quantite DOUBLE PRECISION
 );
 
 CREATE TABLE devis_admin (

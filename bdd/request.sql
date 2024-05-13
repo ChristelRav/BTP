@@ -1,5 +1,5 @@
 ---SELECT TABLE
-
+SELECT * FROM travaux_client;
 SELECT * FROM devis_client;
 SELECT * FROM paiement;
 SELECT * FROM devis_admin;
@@ -15,7 +15,7 @@ SELECT * FROM client;
 
 
 ---DELETE TABLE
-
+DELETE TABLE travaux_client;
 DELETE FROM devis_client;
 DELETE FROM paiement;
 DELETE FROM devis_admin;
@@ -30,7 +30,7 @@ DELETE FROM admin;
 DELETE FROM client;
 
 ---DROP TABLE
-
+DROP TABLE travaux_client;
 DROP TABLE devis_client;
 DROP TABLE paiement;
 DROP TABLE devis_admin;

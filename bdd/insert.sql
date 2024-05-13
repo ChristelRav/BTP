@@ -27,37 +27,61 @@ INSERT INTO finition (type_finition, pourcentage) VALUES
 
 
 INSERT INTO devis_client (id_client, id_maison, id_finition, date_debut, date_fin) VALUES 
-(1, 1, 1, '2024-05-13', '2024-05-20');
-(2, 2, 2, '2024-05-14', '2024-05-21'),
-(3, 3, 3, '2024-05-15', '2024-05-22');
+(1, 1, 1, '2024-05-13', '2024-05-13'); --t1 , std  , 
+(2, 2, 2, '2024-05-14', '2024-10-14'), --t2 , gold  , 
+(3, 3, 3, '2024-05-15', '2024-12-15'); --t3 , premium  , 
 
 
 -- Insérer des données dans la table "travaux"
 INSERT INTO travaux (num_travaux, travaux) VALUES 
-('T001', 'Travaux de peinture intérieure'),
-('T002', 'Travaux de plomberie'),
-('T003', 'Travaux de menuiserie'),
-('T004', 'Travaux de maçonnerie');
+('000', 'Travaux preparatoire'),
+('100', 'Travaux de terrassement'),
+('200', 'Travaux en infrastructure');
 
 -- Insérer des données dans la table "sous_travaux"
-INSERT INTO sous_travaux (id_travaux, sous_travaux, unite, prix_unit) VALUES 
-(1, 'Peinture des murs', 'm²', 15),
-(1, 'Peinture des plafonds', 'm²', 10),
-(2, 'Installation de robinetterie', 'unité', 50),
-(2, 'Réparation de fuites', 'heure', 25),
-(3, 'Fabrication de meubles sur mesure', 'unité', 200),
-(3, 'Installation de portes et fenêtres', 'unité', 150),
-(4, 'Construction de murs', 'm²', 80),
-(4, 'Pose de carrelage', 'm²', 20);
+INSERT INTO sous_travaux (id_travaux,num_sous_travaux ,sous_travaux, unite, prix_unit) VALUES 
+(1,'001', 'mur de soutenement et demi Cloture ht 1m', 'm3', 5120),
+(2,'101', 'decapage des terrains meubles', 'm2', 310),
+(2,'102', 'Dressage de plateforme', 'm2', 370),
+(2,'103', 'fouille ouvrage terrain ferme', 'm3', 220),
+(2,'104', 'remblai ouvrage', 'm3', 580),
+(2,'105', 'travaux implantation', 'fft', 150),
+(3,'201', 'maconnerie de moellons', 'm3', 1650),
+(3,'202', 'beton armee : semelles isolees', 'm3', 300),
+(3,'203', 'beton armee : amorces potaux', 'm3', 1400),
+(3,'204', 'beton armee : chainage bas', 'm3', 400),
+(3,'205', 'remblai technique', 'm3', 580),
+(3,'206', 'herissonage', 'm3', 570),
+(3,'207', 'beton ordinaire', 'm3', 2660),
+(3,'208', 'chape de 2 cm', 'm3', 2660);
 
 -- Insérer des données dans la table "devis"
 INSERT INTO devis (id_sous_travaux, id_maison, quantite) VALUES 
-(1, 1, 1), -- 15
-(2, 1, 1), -- 10
-(3, 1, 1), -- 50
-(4, 1, 1), -- 25
-(5, 1, 1), -- 200
-(6, 1, 1), -- 150
-(7, 1, 1), -- 80
-(8, 1, 1); -- 20
+(1, 1, 1), -- 5120
+(2, 1, 1), -- 310
+(3, 1, 1), -- 370
+
+(4, 2, 1), -- 220
+(5, 2, 1), -- 580
+(6, 2, 1), -- 150
+
+(7, 3, 1), -- 1650
+(8, 3, 1), -- 300
+(7, 3, 1), -- 1400
+
+(7, 4, 1), -- 1650
+(8, 4, 1), -- 300
+(7, 4, 1), -- 1400
+
+(1, 5, 1), -- 5120
+(2, 5, 1), -- 310
+(3, 5, 1), -- 370
+
+(4, 6, 1), -- 220
+(5, 6, 1), -- 580
+(6, 6, 1), -- 150
+
+(7, 7, 1), -- 1650
+(8, 7, 1), -- 300
+(7, 7, 1); -- 1400
 
