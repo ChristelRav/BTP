@@ -32,7 +32,7 @@ class Welcome extends CI_Controller {
 	public function index(){
 		$variable = "Mama mia";
 		$this->session->set_userdata('user', $variable);
-		$this->load->view('pages/v_inscription');
+		$this->load->view('pages/v_login_admin');
 	}		
 	public function accueil(){
 		echo $_SESSION['user'];
