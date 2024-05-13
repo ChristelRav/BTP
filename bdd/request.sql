@@ -53,6 +53,17 @@ JOIN client c ON dc.id_client = c.id_client
 JOIN finition f ON dc.id_finition = f.id_finition
 WHERE dc.id_client = 1;
 
+SELECT dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+SUM(tc.quantite * tc.prix_unit) as total,(SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl 
+FROM devis_client dc
+JOIN maison m ON dc.id_maison = m.id_maison
+JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
+JOIN client c ON dc.id_client = c.id_client
+JOIN finition f ON dc.id_finition = f.id_finition
+WHERE dc.id_client = 1
+GROUP BY dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin;
+
+
 SELECT SUM(d.quantite * st.prix_unit), m.id_maison, m.type_maison, m.caracteristique, m.duree
 FROM maison m
 JOIN devis d ON d.id_maison = m.id_maison

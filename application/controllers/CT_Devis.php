@@ -10,6 +10,7 @@ class CT_Devis extends CI_Controller
         $this->load->model('MD_Finition');
         $this->load->model('MD_Devis_Client');
         $this->load->model('MD_Devis');
+        $this->load->model('MD_Paiement');
     }
     private function viewer($page,$data)
     {
@@ -44,6 +45,26 @@ class CT_Devis extends CI_Controller
             $this->MD_Travaux_Client->insert($last->id_devis_client,$sst[$i]->id_sous_travaux,$sst[$i]->prix_unit,$sst[$i]->quantite);
         }redirect('CT_Accueil');
     }
-
+    public function pdf(){
+        $this->load->library('Tableau');
+        $header = array('num', 'travaux', 'unite', 'quantite', 'prix_unit', 'total');
+        $resultats = $this->MD_Travaux_Client->listDetail_Devis($_GET['devis']);
+        $pdf = new Tableau();
+        $pdf->AddPage();
+        $pdf->details($header,$resultats);
+        $pdf->Output();
+    }
+    public function payer(){
+        $data = array();
+        if($this->input->get('error') != null  )
+        {
+            $data['error'] = $this->input->get('error');
+        }
+        $data['devis'] = $_GET['devis'];
+        $data['ttl'] = $_GET['ttl'];  $r = $this->MD_Paiement->getReste($_GET['devis']); $reste = $r->reste;
+        $data['reste'] =  $data['ttl'] - $reste;
+        $data['paiement'] =   $this->MD_Paiement->listPayer_Devis($_GET['devis']);
+        $this->viewer('/v_payer',$data);
+    }
 }
 ?>

@@ -18,10 +18,11 @@
                             <th>unite</th>
                             <th>quantite</th>
                             <th>prix Unitaire</th>
+                            <th>Total</th>
                         </tr>
                       </thead>
                       <tbody>
-                          <?php   foreach ($resultats as $travaux => $details) { ?>
+                          <?php   foreach ($resultats as $id_travaux => $details) { ?>
                             <tr>
                               <td><?php echo $details['num_travaux']; ?></td>
                               <td><strong><?php echo $details['travaux']; ?></strong></td>
@@ -29,14 +30,21 @@
                               <td></td>
                               <td></td>
                             </tr>
-                            <?php   foreach ($details['id_sous_travaux'] as $key => $detail) { ?>
-                                      <td class="py-1"  ><?php echo  $details['num_sous_travaux'][$key]; ?></td>
-                                      <td><?php echo  $details['sous_travaux'][$key]; ?></td>
-                                      <td><?php echo $details['unite'][$key]; ?></td>
-                                      <td><?php echo $details['quantite'][$key]; ?></td>
-                                      <td><?php echo  $details['prix_unit'][$key]; ?></td>
+                            <?php   foreach ($details['details'] as $detail) { ?>
+                                      <td class="py-1"  ><?php echo  $detail['num_sous_travaux']; ?></td>
+                                      <td><?php echo  $detail['sous_travaux']; ?></td>
+                                      <td><?php echo $detail['unite']; ?></td>
+                                      <td><?php echo $detail['quantite']; ?></td>
+                                      <td><?php echo  number_format($detail['prix_unit'], 2, ',', ' '); ?></td>
+                                      <td><?php echo  number_format($detail['totalP'], 2, ',', ' '); ?></td>
                                     </tr>
                             <?php } ?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total <?php echo $details['travaux']; ?></strong></td>
+                            <td><strong><?php echo number_format($details['total'], 2, ',', ' '); ?></strong></td>
                           <?php } ?>
                       </tbody>
                     </table>

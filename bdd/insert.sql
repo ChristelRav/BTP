@@ -91,3 +91,7 @@ VALUES
     (1, 1, 5120, 1),
     (1, 3, 310, 1),
     (1, 2, 370, 1);
+
+
+INSERT INTO paiement (id_devis_client, montant, date_paiement)
+VALUES (1, 100.50, '2024-05-13');

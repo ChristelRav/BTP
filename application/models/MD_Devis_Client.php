@@ -39,5 +39,18 @@ class MD_Devis_Client extends CI_Model{
         $query = $this->db->get();
         return $query->row(); 
     }
+    public function listDevis_Client_Ttl($client){
+        $this->db->select("dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+        SUM(tc.quantite * tc.prix_unit) as total,(SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl ");
+        $this->db->from('devis_client dc');
+        $this->db->join('travaux_client tc', 'tc.id_devis_client = dc.id_devis_client');
+        $this->db->join('maison m', 'dc.id_maison = m.id_maison');
+        $this->db->join('client c', 'dc.id_client = c.id_client');
+        $this->db->join('finition f', 'dc.id_finition = f.id_finition');
+        $this->db->where('dc.id_client', $client);
+        $this->db->group_by('dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin');
+        $query = $this->db->get();
+        return $query->result();  
+    }
 }
 ?>

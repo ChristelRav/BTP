@@ -17,18 +17,29 @@ class MD_Travaux_Client extends CI_Model{
         $query = $this->db->get();
         $resultats = array();
         foreach ($query->result() as $row) {
-            $resultats[$row->travaux]['travaux'] = $row->travaux;
-            $resultats[$row->travaux]['num_travaux'] = $row->num_travaux;
-            $resultats[$row->travaux]['id_sous_travaux'][] = $row->id_sous_travaux;
-            $resultats[$row->travaux]['num_sous_travaux'][] = $row->num_sous_travaux;
-            $resultats[$row->travaux]['sous_travaux'][] = $row->sous_travaux;
-            $resultats[$row->travaux]['unite'][] = $row->unite;
-            $resultats[$row->travaux]['quantite'][] = $row->quantite;
-            $resultats[$row->travaux]['prix_unit'][] = $row->prix_unit;
-            $resultats[$row->travaux]['total'][] = $row->total;
+            $id_travaux = $row->id_travaux;
+            if(!isset($resultats[$id_travaux])) {
+                $resultats[$id_travaux] = array(
+                    'travaux' => $row->travaux,
+                    'num_travaux' => $row->num_travaux,
+                    'details' => array(),
+                    'total' => 0
+                );
+            }
+            $resultats[$id_travaux]['details'][]  = array(
+                'id_sous_travaux' => $row->id_sous_travaux,
+                'num_sous_travaux' => $row->num_sous_travaux,
+                'sous_travaux' => $row->sous_travaux,
+                'unite' => $row->unite,
+                'quantite' => $row->quantite,
+                'prix_unit' => $row->prix_unit,
+                'totalP' => $row->total
+            );
+            $resultats[$id_travaux]['total'] += $row->total;
         }
         return $resultats;
     }
+    
     function somme($tableau) {
         $total = 0;
         foreach ($tableau as $valeur) {
