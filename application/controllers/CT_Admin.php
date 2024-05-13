@@ -20,7 +20,7 @@ class CT_Admin extends CI_Controller
         $admin = $this->MD_Admin->verify($email, $mdp);
         if ($admin){
             $this->session->set_userdata('admin', $admin);
-            redirect('CT_Accueil');
+            redirect('CT_Tableau/index_admin');
             return;
         }
         else{

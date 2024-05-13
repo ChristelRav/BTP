@@ -9,7 +9,6 @@
               <div class="card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                       <h4 class="card-title mb-0">Entité DEVIS :</h4>
-                        <a type="button" href="<?php echo site_url('CT_Devis/'); ?>"   class="btn btn-info"><i class="mdi mdi-plus"></i></a>
                 </div>
                 <div class="card-body"> 
                   <div class="table-responsive">
@@ -36,10 +35,7 @@
                                   <td><?php echo $ld->date_debut; ?></td>
                                   <td><?php echo $ld->date_fin; ?></td>
                                   <td><?php echo number_format($ld->ttl, 2, ',', ' '); ?></td>
-                                  <td><a type="button" href="<?php echo site_url('CT_Devis/pdf'); ?>?devis=<?php echo $ld->id_devis_client; ?> "  target='_blank'  class="btn btn-danger"><i class="mdi mdi-download mx-0">Pdf</i></a></td>
-                                  <?php if($ld->etat == 3) { ?>
-                                       <td><a type="button" href="<?php echo site_url('CT_Devis/payer'); ?>?devis=<?php echo $ld->id_devis_client; ?>&ttl=<?php echo $ld->ttl; ?>"    class="btn btn-success"><i class="mdi mdi-credit-card mx-0">Payer</i></a></td>
-                                  <?php } ?>
+                                  <td><a type="button" href="<?php echo site_url('CT_Tableau/update'); ?>?devis=<?php echo $ld->id_devis_client; ?> "    class="btn btn-info">En cours</a></td>
                           </tr>
                         <?php } ?>
                       </tbody>

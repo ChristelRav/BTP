@@ -30,6 +30,8 @@ DELETE FROM admin;
 DELETE FROM client;
 
 ---DROP TABLE
+DROP VIEW v_devis_attente;
+DROP VIEW v_devis_admin;
 DROP TABLE travaux_client;
 DROP TABLE devis_client;
 DROP TABLE paiement;
@@ -88,3 +90,60 @@ SELECT *
 FROM devis_client dc
 WHERE id_client = 1
 ORDER BY id_devis_client DESC LIMIT 1;
+
+SELECT sum(p.montant)
+FROM paiement p
+WHERE p.id_devis_client = 1;
+
+
+SELECT dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+SUM(tc.quantite * tc.prix_unit) as total,(SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl 
+FROM devis_client dc
+JOIN maison m ON dc.id_maison = m.id_maison
+JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
+JOIN client c ON dc.id_client = c.id_client
+JOIN finition f ON dc.id_finition = f.id_finition
+WHERE dc.etat= 3
+GROUP BY dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin;
+
+
+CREATE VIEW v_devis_admin  as (SELECT 
+    dc.id_devis_client,da.id_admin , dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+    SUM(tc.quantite * tc.prix_unit) as total,
+    (SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl,
+    (SELECT COALESCE(SUM(p.montant), 0) FROM paiement p WHERE p.id_devis_client = dc.id_devis_client) as deja_payer,
+    (SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100)   -  (SELECT COALESCE(SUM(p.montant), 0) FROM paiement p WHERE p.id_devis_client = dc.id_devis_client) as reste_a_payer
+FROM 
+    devis_client dc
+JOIN maison m ON dc.id_maison = m.id_maison
+JOIN devis_admin da  ON da.id_devis_client =  dc.id_devis_client
+JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
+JOIN client c ON dc.id_client = c.id_client
+JOIN finition f ON dc.id_finition = f.id_finition
+WHERE dc.etat = 3 
+GROUP BY dc.id_devis_client,da.id_admin , dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
+ORDER BY dc.date_creation DESC
+);
+
+
+
+CREATE VIEW v_devis_attente  as (SELECT
+    dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+    SUM(tc.quantite * tc.prix_unit) as total,
+    (SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl
+FROM
+devis_client dc
+JOIN maison m ON dc.id_maison = m.id_maison
+JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
+JOIN client c ON dc.id_client = c.id_client
+JOIN finition f ON dc.id_finition = f.id_finition
+WHERE dc.etat =1
+GROUP BY dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
+ORDER BY dc.date_creation DESC
+);
+
+--Le montant total des devis
+select sum(ttl) as all_devis
+from v_devis_admin where id_admin=1;
+--
+

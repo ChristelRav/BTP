@@ -95,3 +95,7 @@ VALUES
 
 INSERT INTO paiement (id_devis_client, montant, date_paiement)
 VALUES (1, 100.50, '2024-05-13');
+
+
+INSERT INTO devis_admin (id_devis_client, id_admin)
+VALUES (1, 2);

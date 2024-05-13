@@ -66,5 +66,9 @@ class CT_Devis extends CI_Controller
         $data['paiement'] =   $this->MD_Paiement->listPayer_Devis($_GET['devis']);
         $this->viewer('/v_payer',$data);
     }
+    public function dashboard(){
+        $data = array();
+        $this->viewer('/v_tableau_bord',$data);
+    }
 }
 ?>

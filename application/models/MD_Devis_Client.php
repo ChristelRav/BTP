@@ -40,7 +40,7 @@ class MD_Devis_Client extends CI_Model{
         return $query->row(); 
     }
     public function listDevis_Client_Ttl($client){
-        $this->db->select("dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+        $this->db->select("dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,dc.etat,
         SUM(tc.quantite * tc.prix_unit) as total,(SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl ");
         $this->db->from('devis_client dc');
         $this->db->join('travaux_client tc', 'tc.id_devis_client = dc.id_devis_client');
@@ -51,6 +51,24 @@ class MD_Devis_Client extends CI_Model{
         $this->db->group_by('dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin');
         $query = $this->db->get();
         return $query->result();  
+    }
+    public function listDevis_Admin_Ttl($admin){
+        $this->db->select("*");
+        $this->db->from('v_devis_admin');
+        $this->db->where('id_admin ', $admin);
+        $query = $this->db->get();
+        return $query->result();  
+    }
+    public function listDevis_attente(){
+        $this->db->select("*");
+        $this->db->from('v_devis_attente');
+        $query = $this->db->get();
+        return $query->result();  
+    }
+    public function update($id,$etat) {
+        $sql = "update devis_client set etat=%s where id_devis_client =%s";
+        $sql = sprintf($sql,$this->db->escape($etat),$this->db->escape($id));
+        $this->db->query($sql);
     }
 }
 ?>

@@ -21,6 +21,8 @@
 
   <!-- base:js -->
   <script src="<?php echo base_url("assets/vendors/js/vendor.bundle.base.js"); ?>" ></script>
+
+    <script src="<?php echo base_url("assets/js/chart.js"); ?>" ></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <script src="<?php echo base_url("assets/vendors/chart.js/Chart.min.js"); ?>" ></script>
