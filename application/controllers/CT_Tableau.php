@@ -26,7 +26,12 @@ class CT_Tableau extends CI_Controller
 		$this->viewer('/v_devis_attente',$data);
 	}
     public function dashboard(){
-        $data = array();
+        $actual = date("Y");
+        $data['dash'] = $this->MD_Devis_Admin->calculerDevis_Total_ParMois($actual,$_SESSION['admin'][0]['id_admin']);
+        $this->viewer('/v_tableau_bord_admin',$data);
+    }
+    public function dash(){
+        $data['dash'] = $this->MD_Devis_Admin->calculerDevis_Total_ParMois($_POST['an'],$_SESSION['admin'][0]['id_admin']);
         $this->viewer('/v_tableau_bord_admin',$data);
     }
     public function update(){

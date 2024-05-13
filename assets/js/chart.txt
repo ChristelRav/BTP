@@ -4,16 +4,11 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
-  
-  // Récupérer les données depuis l'attribut de données HTML
-  var donnees = JSON.parse(document.getElementById('barChart').getAttribute('data-donnees'));
-
-  // Utiliser ces données pour configurer votre graphique
   var data = {
-    labels: donnees.map(function(item) { return item.mois; }), // Utiliser les mois récupérés depuis les données
+    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
     datasets: [{
-      label: '# Montant total',
-      data: donnees.map(function(item) { return item.montant_total; }), // Utiliser les montants totaux récupérés depuis les données
+      label: '# of Votes',
+      data: [10, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -34,7 +29,6 @@ $(function() {
       fill: false
     }]
   };
-  
   var options = {
     scales: {
       yAxes: [{
@@ -51,11 +45,12 @@ $(function() {
         radius: 0
       }
     }
-  };
 
-  // Afficher le graphique en utilisant les données et les options
+  };
+  // Get context with jQuery - using jQuery's .get() method.
   if ($("#barChart").length) {
     var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
     var barChart = new Chart(barChartCanvas, {
       type: 'bar',
       data: data,

@@ -21,5 +21,20 @@ class MD_Devis_Admin extends CI_Model{
         $query = $this->db->get(); 
         return $query->row(); 
     }
+    public function calculerDevis_Total_ParMois($annee,$id) {
+        $sql = "SELECT to_char(dates.month_date, 'Month') AS mois,COALESCE(SUM(vda.ttl), 0) AS montant_total
+            FROM generate_series('".$annee."-01-01'::date,'". $annee."-12-31'::date, '1 month') AS dates(month_date)
+            LEFT JOIN v_devis_admin vda ON vda.date_creation >= dates.month_date 
+            AND vda.date_creation < dates.month_date + INTERVAL '1 month'
+            AND EXTRACT(YEAR FROM vda.date_creation) = $annee
+            AND vda.id_admin = $id
+            GROUP BY dates.month_date
+            ORDER BY dates.month_date;
+            ";
+        $query = $this->db->query($sql, array($annee));
+        return $query->result();
+    }
+
+
 }
 ?>

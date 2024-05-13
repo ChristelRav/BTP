@@ -146,4 +146,32 @@ ORDER BY dc.date_creation DESC
 select sum(ttl) as all_devis
 from v_devis_admin where id_admin=1;
 --
+SELECT 
+EXTRACT(MONTH FROM dates.month_date) AS mois,
+COALESCE(SUM(vda.ttl), 0) AS montant_total
+FROM 
+generate_series('2024-01-01'::date, '2024-12-31'::date, '1 month') AS dates(month_date)
+LEFT JOIN 
+v_devis_admin vda ON EXTRACT(MONTH FROM vda.date_creation) = EXTRACT(MONTH FROM dates.month_date)
+AND EXTRACT(YEAR FROM vda.date_creation) = 2024
+AND vda.id_admin = 1
+GROUP BY  mois
+ORDER BY mois;
+
+SELECT 
+    to_char(dates.month_date, 'Month') AS mois,
+    COALESCE(SUM(vda.ttl), 0) AS montant_total
+FROM 
+    generate_series('2024-01-01'::date, '2024-12-31'::date, '1 month') AS dates(month_date)
+LEFT JOIN 
+    v_devis_admin vda ON vda.date_creation >= dates.month_date 
+    AND vda.date_creation < dates.month_date + INTERVAL '1 month'
+    AND EXTRACT(YEAR FROM vda.date_creation) = 2024
+    AND vda.id_admin = 1
+GROUP BY 
+    dates.month_date
+ORDER BY 
+    dates.month_date;
+
+
 
