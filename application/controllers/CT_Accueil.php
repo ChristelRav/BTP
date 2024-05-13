@@ -15,7 +15,6 @@ class CT_Accueil extends CI_Controller
         $this->load->view('template/basepage',$v);
     }
     public function index(){
-		$data = array();
         $user = $_SESSION['client'][0]['id_client'];
         $data['listDevis'] = $this->MD_Devis_Client->listDevis_Client($user);
 		$this->viewer('/v_accueil',$data);

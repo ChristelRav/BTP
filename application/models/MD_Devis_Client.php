@@ -17,5 +17,27 @@ class MD_Devis_Client extends CI_Model{
         $query = $this->db->get();
         return $query->result();  
     }
+    public function insert($id_client, $id_maison, $id_finition,$date_creation, $date_debut, $date_fin,$pourcentage) {
+        $sql = "insert into devis_client (id_client, id_maison, id_finition,date_creation, date_debut, date_fin,pourcentage) values ( %s, %s, %s, %s, %s, %s, %s) ";
+        $sql = sprintf($sql,$this->db->escape($id_client),$this->db->escape($id_maison),$this->db->escape($id_finition),$this->db->escape($date_creation),$this->db->escape($date_debut),$this->db->escape($date_fin),$this->db->escape($pourcentage));
+        $this->db->query($sql);
+
+        $insert_id = $this->db->insert_id();
+        return $this->getOne($insert_id);
+    }
+    function ajoutJours($date, $nombre_jours) {
+        $date_obj = new DateTime($date);
+        $date_obj->modify('+' . $nombre_jours . ' days');
+        return $date_obj->format('Y-m-d');
+    }
+    public function getNewDevis_Client($id) {
+        $this->db->select('*');
+        $this->db->from('devis_client dc');
+        $this->db->where('dc.id_client', $id);
+        $this->db->order_by('dc.id_devis_client', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row(); 
+    }
 }
 ?>

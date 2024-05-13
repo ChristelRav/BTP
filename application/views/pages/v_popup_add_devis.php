@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Ajout Devis</h4>
-                        <form class="forms-sample" action="<?php echo base_url('CT_Film/updateFilm') ?>" method="post" >
+                        <form class="forms-sample" action="<?php echo base_url('CT_Devis/insert') ?>" method="post" >
                         <input type="hidden" name="id" class="form-control" id="id" >
                             <div class="form-group row">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Date_création</label>
@@ -22,9 +22,9 @@
                             <div class="form-group row">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">type_finition</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control form-control-sm"  name="type" id="type">
-                                    <?php foreach ($type as $t) { ?>
-                                        <option value="<?php echo $t->idtype; ?>"><?php echo $t->categorie; ?></option>
+                                    <select class="form-control form-control-sm"  name="finition" id="type">
+                                    <?php foreach ($finition as $f) { ?>
+                                        <option value="<?php echo $f->id_finition; ?>"><?php echo $f->type_finition; ?></option>
                                     <?php } ?>
                                     </select>
                                 </div>

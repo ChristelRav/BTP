@@ -10,5 +10,10 @@ class MD_Maison extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     }
+    public function getOne($id) {
+        $this->db->where('id_maison', $id);
+        $query = $this->db->get('maison'); 
+        return $query->row(); 
+    }
 }
 ?>

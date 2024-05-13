@@ -4,6 +4,7 @@
 
 
 <?php if (!isset($maison)) $maison = array(); ?>        
+<?php if (!isset($finition)) $finition = array(); ?>    
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -45,6 +46,7 @@
 
         overlay.style.display = "flex";
         popup.style.display = "block";
+        document.getElementById('id').value = film;
     }
 
     function closePopup() {

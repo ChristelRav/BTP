@@ -7,10 +7,7 @@
           <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                      <h4 class="card-title mb-0">Entité DEVIS :</h4>
-                        <a type="button" href="<?php echo site_url('CT_Devis/'); ?>" class="btn btn-info"><i class="mdi mdi-plus"></i></a>
-                </div>
+                <div class="card-body d-flex justify-content-between align-items-center"><h4 class="card-title mb-0">Entité DEVIS :</h4></div>
                 <div class="card-body"> 
                   <div class="table-responsive">
                     <table class="table table-bordered">

@@ -65,3 +65,15 @@ JOIN devis_client dc ON dc.id_devis_client = tv.id_devis_client
 JOIN sous_travaux st ON tv.id_sous_travaux = st.id_sous_travaux
 JOIN travaux t ON t.id_travaux = st.id_travaux
 where tv.id_devis_client =1;
+
+
+SELECT d.quantite , st.prix_unit ,st.id_sous_travaux
+FROM devis d
+JOIN sous_travaux st ON d.id_sous_travaux = st.id_sous_travaux
+JOIN travaux t ON t.id_travaux = st.id_travaux
+WHERE id_maison = 1;
+
+SELECT *
+FROM devis_client dc
+WHERE id_client = 1
+ORDER BY id_devis_client DESC LIMIT 1;
