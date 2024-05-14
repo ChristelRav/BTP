@@ -28,15 +28,9 @@ CREATE TABLE finition (
     pourcentage DOUBLE PRECISION
 );
 
-CREATE TABLE travaux (
-    id_travaux SERIAL PRIMARY KEY,
-    num_travaux VARCHAR(10),
-    travaux TEXT
-);
 
 CREATE TABLE sous_travaux (
     id_sous_travaux SERIAL PRIMARY KEY,
-    id_travaux INT REFERENCES travaux(id_travaux),
     num_sous_travaux VARCHAR(10),
     sous_travaux TEXT,
     unite VARCHAR(10),

@@ -18,5 +18,13 @@ class MD_Sous_Travaux extends CI_Model{
         $sql = sprintf($sql,$this->db->escape($num),$this->db->escape($sst),$this->db->escape($unite),$this->db->escape($prix),$this->db->escape($id));
         $this->db->query($sql);
     }
+    public function insert($num_sous_travaux ,$sous_travaux, $unite, $prix_unit) {
+        $sql = "insert into  sous_travaux (num_sous_travaux ,sous_travaux, unite, prix_unit) values ( %s, %s, %s, %s) ";
+        $sql = sprintf($sql,$this->db->escape($num_sous_travaux),$this->db->escape($sous_travaux),$this->db->escape($unite),$this->db->escape($prix_unit));
+        $this->db->query($sql);
+
+        $insert_id = $this->db->insert_id();
+        return $this->getOne($insert_id);
+    }
 }
 ?>

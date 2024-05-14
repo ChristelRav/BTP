@@ -32,7 +32,7 @@
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="pt-3"   action="<?php echo site_url('CT_Client/login')?>"  method="POST"  >
                 <div class="form-group">
-                  <input type="text" name="contact" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="phone number" value="0340784909">
+                  <input type="text" name="contact" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="phone number" value="0340590098">
                 </div>
                 <div class="mt-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>

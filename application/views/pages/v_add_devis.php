@@ -17,7 +17,8 @@
                                     <p class="card-title">Maison de Type : <?php echo $m->type_maison; ?></p>
                                     <p class="text-muted"><?php echo $m->type_maison; ?></p>
                                     <h2><?php echo $m->total; ?> Ar</h2>
-                                    <p>Durée : <?php echo $m->duree; ?></p>
+                                    <p><strong>Durée :</strong> <?php echo $m->duree; ?></p>
+                                    <p><strong>Surface : </strong><?php echo $m->surface; ?></p>
                                     <p><?php echo $m->caracteristique; ?></p>
                                     <button type="button" href="javascript:void(0);" onclick="openPopup(<?php echo htmlspecialchars(json_encode($m->id_maison)); ?>)" class="btn btn-info">Sélectionner</button>
                         </div>

@@ -6,6 +6,11 @@ class MD_Devis_Client extends CI_Model{
         $query = $this->db->get('devis_client'); 
         return $query->row(); 
     }
+    public function getRef($id) {
+        $this->db->where('ref_devis', $id);
+        $query = $this->db->get('devis_client'); 
+        return $query->row(); 
+    }
     // DEVIS - CLIENT
     public function listDevis_Client($client){
         $this->db->select("dc.id_devis_client,dc.date_creation,m.type_maison,f.type_finition,dc.date_debut,dc.date_fin");
@@ -17,11 +22,12 @@ class MD_Devis_Client extends CI_Model{
         $query = $this->db->get();
         return $query->result();  
     }
-    public function insert($id_client, $id_maison, $id_finition,$date_creation, $date_debut, $date_fin,$pourcentage) {
-        $sql = "insert into devis_client (id_client, id_maison, id_finition,date_creation, date_debut, date_fin,pourcentage) values ( %s, %s, %s, %s, %s, %s, %s) ";
-        $sql = sprintf($sql,$this->db->escape($id_client),$this->db->escape($id_maison),$this->db->escape($id_finition),$this->db->escape($date_creation),$this->db->escape($date_debut),$this->db->escape($date_fin),$this->db->escape($pourcentage));
+    public function insert($id_client,$ref_devis,$lieu,$id_maison, $id_finition,$date_creation, $date_debut, $date_fin,$pourcentage) {
+        $sql = "insert into devis_client (id_client,ref_devis,lieu, id_maison, id_finition,date_creation, date_debut, date_fin,pourcentage) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s) ";
+        $sql = sprintf($sql,$this->db->escape($id_client),$this->db->escape($ref_devis),$this->db->escape($lieu),$this->db->escape($id_maison),$this->db->escape($id_finition),$this->db->escape($date_creation),$this->db->escape($date_debut),$this->db->escape($date_fin),$this->db->escape($pourcentage));
+        echo $this->db->last_query();
         $this->db->query($sql);
-
+        echo $this->db->last_query();
         $insert_id = $this->db->insert_id();
         return $this->getOne($insert_id);
     }
@@ -55,13 +61,18 @@ class MD_Devis_Client extends CI_Model{
     public function listDevis_Admin_Ttl($admin){
         $this->db->select("*");
         $this->db->from('v_devis_admin');
-        $this->db->where('id_admin ', $admin);
         $query = $this->db->get();
         return $query->result();  
     }
     public function listDevis_attente(){
         $this->db->select("*");
         $this->db->from('v_devis_attente');
+        $query = $this->db->get();
+        return $query->result();  
+    }
+    public function listDC(){
+        $this->db->select("*");
+        $this->db->from('devis_client');
         $query = $this->db->get();
         return $query->result();  
     }

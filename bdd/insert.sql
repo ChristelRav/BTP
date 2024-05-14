@@ -32,12 +32,6 @@ INSERT INTO devis_client (id_client, id_maison, id_finition, date_debut, date_fi
 (3, 3, 3, '2024-05-15', '2024-12-15'); --t3 , premium  , 
 
 
--- Insérer des données dans la table "travaux"
-INSERT INTO travaux (num_travaux, travaux) VALUES 
-('000', 'Travaux preparatoire'),
-('100', 'Travaux de terrassement'),
-('200', 'Travaux en infrastructure');
-
 -- Insérer des données dans la table "sous_travaux"
 INSERT INTO sous_travaux (id_travaux,num_sous_travaux ,sous_travaux, unite, prix_unit) VALUES 
 (1,'001', 'mur de soutenement et demi Cloture ht 1m', 'm3', 5120),

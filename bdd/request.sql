@@ -30,6 +30,11 @@ DELETE FROM admin;
 DELETE FROM client;
 
 ---DROP TABLE
+
+DROP TABLE temp1;
+DROP TABLE temp2;
+DROP TABLE temp3;
+
 DROP VIEW v_dash_devis;
 DROP VIEW v_devis_attente;
 DROP VIEW v_devis_admin;
@@ -116,7 +121,7 @@ GROUP BY dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, d
 
 
 CREATE VIEW v_devis_admin  as (SELECT 
-    dc.id_devis_client,da.id_admin , dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+    dc.ref_devis,dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
     SUM(tc.quantite * tc.prix_unit) as total,
     (SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl,
     (SELECT COALESCE(SUM(p.montant), 0) FROM paiement p WHERE p.id_devis_client = dc.id_devis_client) as deja_payer,
@@ -125,18 +130,17 @@ CREATE VIEW v_devis_admin  as (SELECT
 FROM 
     devis_client dc
 JOIN maison m ON dc.id_maison = m.id_maison
-JOIN devis_admin da  ON da.id_devis_client =  dc.id_devis_client
 JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
 JOIN client c ON dc.id_client = c.id_client
 JOIN finition f ON dc.id_finition = f.id_finition
-GROUP BY dc.id_devis_client,da.id_admin , dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
+GROUP BY dc.ref_devis,dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
 ORDER BY dc.date_creation DESC
 );
 
 
 
 CREATE VIEW v_devis_attente  as (SELECT
-    dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
+    dc.ref_devis,dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,
     SUM(tc.quantite * tc.prix_unit) as total,
     (SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl
 FROM
@@ -146,7 +150,7 @@ JOIN travaux_client tc ON tc.id_devis_client = dc.id_devis_client
 JOIN client c ON dc.id_client = c.id_client
 JOIN finition f ON dc.id_finition = f.id_finition
 WHERE dc.etat =1
-GROUP BY dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
+GROUP BY dc.ref_devis,dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage
 ORDER BY dc.date_creation DESC
 );
 
@@ -197,5 +201,47 @@ JOIN finition f ON dc.id_finition = f.id_finition
 GROUP BY dc.id_finition,f.pourcentage;
 
 
+--T3
+
+INSERT INTO paiement (ref_paiement,id_devis_client,montant,date_paiement)
+SELECT t3.ref_paiement,dc.id_devis_client,t3.montant,t3.date_paiement
+FROM temp3 t3
+JOIN devis_client dc ON dc.ref_devis =  t3.ref_devis;
+
+--T1
+
+INSERT INTO maison (type_maison,caracteristique,duree,surface)
+SELECT distinct t1.type_maison,t1.description,t1.duree_travaux,surface
+FROM temp1 t1;
 
 
+INSERT INTO sous_travaux (num_sous_travaux ,sous_travaux, unite, prix_unit)
+SELECT distinct t1.code_travaux , t1.type_travaux, t1. unite, t1. prix_unitaire
+FROM temp1 t1;
+
+INSERT INTO devis (id_sous_travaux, id_maison, quantite)
+SELECT distinct sst.id_sous_travaux,m.id_maison,t1.quantite
+FROM temp1 t1
+JOIN maison m ON t1.type_maison = m.type_maison
+JOIN sous_travaux sst ON sst.num_sous_travaux = t1.code_travaux;
+
+--TEMP2
+
+
+INSERT INTO client (contact)
+SELECT distinct t2.client
+FROM temp2 t2;
+
+INSERT INTO finition (type_finition,pourcentage)
+SELECT distinct t2.finition,t2.taux_finition
+FROM temp2 t2;
+
+INSERT into devis_client (ref_devis,id_client, id_maison, id_finition,date_creation, date_debut, date_fin,pourcentage,lieu) 
+SELECT distinct t2.ref_devis,c.id_client,m.id_maison,f.id_finition,t2.date_devis,t2.date_debut,t2.date_debut + m.duree as date_fin,
+t2.taux_finition,t2.lieu
+FROM temp2 t2
+JOIN client c ON c.contact = t2.client
+JOIN  maison m ON t2.type_maison = m.type_maison
+JOIN finition f ON f.type_finition = t2.finition;
+
+--

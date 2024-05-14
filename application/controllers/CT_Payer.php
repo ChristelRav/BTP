@@ -15,14 +15,30 @@ class CT_Payer extends CI_Controller
         );
         $this->load->view('template/basepage',$v);
     }
-    public function index(){
-        if($_POST['montant']>$_POST['reste']){
-            $data['error'] = 'Montant invalide';
-            redirect('CT_Devis/payer?error=' . urlencode($data['error']).'&devis=' . urlencode($_POST['devis']).'&ttl='. urlencode($_POST['ttl']).'&reste='. urlencode($_POST['reste']));
-        }else{
-            $this->MD_Paiement->insert($_POST['devis'],$_POST['montant'],$_POST['dp']);
-            redirect('CT_Devis/payer?devis=' . urlencode($_POST['devis']).'&ttl='. urlencode($_POST['ttl']).'&reste='. urlencode($_POST['reste']));    
+    public function payer(){
+        // Assurez-vous que les données sont valides
+        if(isset($_POST['amount']) && isset($_POST['reste']) && isset($_POST['devis']) && isset($_POST['dp'])){
+            $amount = floatval($_POST['amount']);
+            $rest = floatval($_POST['reste']);
+            $devis = floatval($_POST['devis']);
+            // Convertissez $_POST['dp'] en un objet DateTime
+            $date = new DateTime($_POST['dp']);
+    
+            // Vérifiez si le montant est supérieur au reste
+            if($amount > $rest){
+                // Renvoyez une réponse JSON indiquant l'erreur
+                echo json_encode(['error' => 'Le montant ne peut pas être supérieur au reste.']);
+                return;
+            }
+    
+            // Traitez le paiement ici
+            // Supposons que vous avez une méthode insert dans votre modèle MD_Paiement
+            $this->MD_Paiement->insert('REP5467', $devis, $amount, $date->format('Y-m-d'));
+        } else {
+            // Renvoyez une réponse JSON indiquant que les données sont manquantes
+            echo json_encode(['error' => 'Les données nécessaires sont manquantes.']);
         }
-	}
+    }
+    
 }
 ?>

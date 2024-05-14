@@ -20,6 +20,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">lieu</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="lieu" class="form-control" id="nom" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">type_finition</label>
                                 <div class="col-sm-9">
                                 <?php foreach ($finition as $f) { ?>

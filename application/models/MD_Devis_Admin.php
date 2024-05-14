@@ -17,7 +17,6 @@ class MD_Devis_Admin extends CI_Model{
     public function sumMontant_All_devis($id) {
         $this->db->select("sum(ttl) as all_devis, sum(deja_payer) as effectue");
         $this->db->from('v_devis_admin'); 
-        $this->db->where('id_admin', $id);
         $query = $this->db->get(); 
         return $query->row(); 
     }
@@ -27,7 +26,6 @@ class MD_Devis_Admin extends CI_Model{
             LEFT JOIN v_devis_admin vda ON vda.date_creation >= dates.month_date 
             AND vda.date_creation < dates.month_date + INTERVAL '1 month'
             AND EXTRACT(YEAR FROM vda.date_creation) = $annee
-            AND vda.id_admin = $id
             GROUP BY dates.month_date
             ORDER BY dates.month_date;
             ";

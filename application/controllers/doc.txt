@@ -15,7 +15,16 @@
                     Paiement_devis
                   </p>
 
-                  <form class="forms-sample" id="paymentForm"  action="<?php echo site_url('CT_Payer/payer') ?>" method="post" >
+                  <?php if(isset($error)){ ?>
+                      <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                        <strong>Error!</strong> <?php echo $error ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                  <?php } ?>
+
+                  <form class="forms-sample" id="paymentForm"  action="<?php echo site_url('CT_Payer') ?>" method="post" >
                     <input type="hidden" name="devis" value="<?php echo $devis;?>">
                     <input type="hidden" name="ttl" value="<?php echo $ttl;?>">
                     <input type="hidden" name="reste" value="<?php echo $reste;?>">
@@ -68,29 +77,25 @@
             </div>
             <!-- row end -->
             <!-- row end -->
-          </div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $('#paymentForm').on('submit', function(e){
-        e.preventDefault(); // Empêche le comportement par défaut du formulaire
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response){
-                if(response.error){
-                    alert(response.error); // Affiche l'erreur
-                } else {
-                    alert(response.error); 
-                    window.location.href = "<?php echo site_url('CT_Payer/success');?>";
-                }
-            },
-            error: function(xhr, status, error){
-                console.error("Erreur AJAX: " + error);
-            }
+          </div>
+          <script>
+        $(document).ready(function() {
+            $('#paymentForm').on('submit', function(event) {
+                event.preventDefault();
+                
+                var amount = parseFloat($('#amount').val());
+                var total = parseFloat($('#total').val());
+                    $.ajax({
+                        url: 'validate_payment.php',
+                        type: 'POST',
+                        data: { amount: amount,total:total },
+                        success: function(response) {
+                            $('#message').text(response.message);
+                        },
+                        error: function() {
+                            $('#message').text('Erreur lors de la validation du paiement.');
+                        }
+                    });
+            });
         });
-    });
-});
-</script>
+    </script>

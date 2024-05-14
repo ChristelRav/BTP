@@ -6,9 +6,9 @@ class MD_Paiement extends CI_Model{
         $query = $this->db->get('paiement'); 
         return $query->row(); 
     }
-    public function insert($id_devis_client, $montant, $date_paiement) {
-        $sql = "insert into  paiement (id_devis_client, montant, date_paiement) values (%s, %s, %s) ";
-        $sql = sprintf($sql,$this->db->escape($id_devis_client),$this->db->escape($montant),$this->db->escape($date_paiement));
+    public function insert($ref_paiement,$id_devis_client, $montant, $date_paiement) {
+        $sql = "insert into  paiement (ref_paiement,id_devis_client, montant, date_paiement) values (%s, %s, %s, %s) ";
+        $sql = sprintf($sql,$this->db->escape($ref_paiement),$this->db->escape($id_devis_client),$this->db->escape($montant),$this->db->escape($date_paiement));
         $this->db->query($sql);
 
         $insert_id = $this->db->insert_id();
