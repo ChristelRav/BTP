@@ -245,3 +245,22 @@ JOIN  maison m ON t2.type_maison = m.type_maison
 JOIN finition f ON f.type_finition = t2.finition;
 
 --
+
+
+SELECT 
+    dc.id_devis_client,
+    dc.date_creation,
+    m.type_maison,
+    f.type_finition,
+    dc.date_debut,
+    dc.date_fin
+FROM 
+    devis_client dc
+JOIN 
+    maison m ON dc.id_maison = m.id_maison
+JOIN 
+    client c ON dc.id_client = c.id_client
+JOIN 
+    finition f ON dc.id_finition = f.id_finition
+WHERE 
+    dc.id_client = 1

@@ -13,6 +13,71 @@
                   <p class="card-description">
                     Maison - Travaux - Devis
                   </p>
+
+                  <?php if(isset($err)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Les montants négatifs se trouvent aux lignes : </strong> <?php echo implode(', ', $err); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($err1)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Surface invalides se trouvent aux lignes :</strong><?php echo implode(', ', $err1); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($err2)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  quantité invalides se trouvent aux lignes : </strong> <?php echo implode(', ', $err2); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+                            
+
+                            <?php if(isset($err3)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Durée invalides se trouvent aux lignes :</strong><?php echo implode(', ', $err3); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($e)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!!!!!! Les Taux finition négatifs se trouvent aux lignes : </strong> <?php echo implode(', ', $e); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($e1)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!!!!!!!  Date devis invalides se trouvent aux lignes :</strong><?php echo implode(', ', $e1); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($e2)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!!!!!!!  Date fin invalides se trouvent aux lignes : </strong> <?php echo implode(', ', $e2); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
                   <form class="forms-sample"  action="<?php echo site_url('CT_Import/import2'); ?>" method="post" enctype="multipart/form-data">
                     
                     <div class="form-group">
@@ -51,6 +116,34 @@
                             <p class="card-description">
                                 Paiement
                             </p>
+
+                            <?php if(isset($erreur)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Les montants négatifs se trouvent aux lignes : </strong> <?php echo $erreur; ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($int)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Les montants négatifs se trouvent aux lignes : </strong> <?php echo implode(', ', $int); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+
+                            <?php if(isset($date)){ ?>
+                                <div class="alert alert-danger alert-dismissible fade show"  role="alert">
+                                  <strong>Erreur!  Les dates invalides se trouvent aux lignes :</strong><?php echo implode(', ', $date); ?>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            <?php } ?>
+                            
                             <form class="forms-sample"  action="<?php echo site_url('CT_Import/import1'); ?>" method="post" enctype="multipart/form-data">
                                 
                                 <div class="form-group">

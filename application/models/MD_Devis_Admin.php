@@ -20,6 +20,13 @@ class MD_Devis_Admin extends CI_Model{
         $query = $this->db->get(); 
         return $query->row(); 
     }
+    public function sumMontant($id) {
+        $this->db->select("ttl");
+        $this->db->from('v_devis_admin'); 
+        $this->db->where('ref_devis', $id);
+        $query = $this->db->get(); 
+        return $query->row(); 
+    }
     public function calculerDevis_Total_ParMois($annee,$id) {
         $sql = "SELECT to_char(dates.month_date, 'Month') AS mois,COALESCE(SUM(vda.ttl), 0) AS montant_total
             FROM generate_series('".$annee."-01-01'::date,'". $annee."-12-31'::date, '1 month') AS dates(month_date)

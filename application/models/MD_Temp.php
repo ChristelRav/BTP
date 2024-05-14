@@ -16,6 +16,7 @@ class MD_Temp extends CI_Model{
         $sql = "insert into temp2 (client,ref_devis,type_maison,finition,taux_finition,date_devis,date_debut,lieu) values ( %s, %s, %s, %s, %s, %s, %s, %s) ";
         $sql = sprintf($sql,$this->db->escape($client),$this->db->escape($ref_devis),$this->db->escape($type_maison),$this->db->escape($finition),$this->db->escape($taux_finition),$this->db->escape($date_devis),$this->db->escape($date_debut),$this->db->escape($lieu));
         $this->db->query($sql);
+        echo $this->db->last_query();
     }
     public function insert3($ref_devis,$ref_paiement,$date_paiement,$montant)  {
         $date_paiement = DateTime::createFromFormat('d/m/Y', $date_paiement)->format('Y-m-d');
