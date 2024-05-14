@@ -15,7 +15,7 @@ class MD_Devis_Admin extends CI_Model{
         return $this->getOne($insert_id);
     }
     public function sumMontant_All_devis($id) {
-        $this->db->select("sum(ttl) as all_devis");
+        $this->db->select("sum(ttl) as all_devis, sum(deja_payer) as effectue");
         $this->db->from('v_devis_admin'); 
         $this->db->where('id_admin', $id);
         $query = $this->db->get(); 

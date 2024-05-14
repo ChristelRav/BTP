@@ -39,7 +39,7 @@
         
 
           
-          <script>
+<script>
     function openPopup(film) {
         var overlay = document.getElementById("shadow");
         var popup = document.getElementById("popup");

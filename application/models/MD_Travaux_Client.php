@@ -8,38 +8,26 @@ class MD_Travaux_Client extends CI_Model{
     }
     //TRAVAUX - PRIX - QTT - DEVIS
     public function listDetail_Devis($devis){
-        $this->db->select('t.num_travaux,st.num_sous_travaux,st.sous_travaux,tv.id_sous_travaux,st.unite,tv.quantite,tv.prix_unit,st.id_travaux,t.travaux,(tv.quantite*tv.prix_unit)  as total');
+        $this->db->select('st.num_sous_travaux,st.sous_travaux,tv.id_sous_travaux,st.unite,tv.quantite,tv.prix_unit,(tv.quantite*tv.prix_unit)  as total');
         $this->db->from('travaux_client tv');
         $this->db->join('devis_client dc', 'dc.id_devis_client = tv.id_devis_client');
         $this->db->join('sous_travaux st', 'tv.id_sous_travaux = st.id_sous_travaux');
-        $this->db->join('travaux t', 't.id_travaux = st.id_travaux');
         $this->db->where('tv.id_devis_client ', $devis);
         $query = $this->db->get();
-        $resultats = array();
-        foreach ($query->result() as $row) {
-            $id_travaux = $row->id_travaux;
-            if(!isset($resultats[$id_travaux])) {
-                $resultats[$id_travaux] = array(
-                    'travaux' => $row->travaux,
-                    'num_travaux' => $row->num_travaux,
-                    'details' => array(),
-                    'total' => 0
-                );
-            }
-            $resultats[$id_travaux]['details'][]  = array(
-                'id_sous_travaux' => $row->id_sous_travaux,
-                'num_sous_travaux' => $row->num_sous_travaux,
-                'sous_travaux' => $row->sous_travaux,
-                'unite' => $row->unite,
-                'quantite' => $row->quantite,
-                'prix_unit' => $row->prix_unit,
-                'totalP' => $row->total
-            );
-            $resultats[$id_travaux]['total'] += $row->total;
-        }
-        return $resultats;
+        return $query->result();
     }
-    
+    public function sumMontant($devis) {
+        $this->db->select('sum(tv.quantite*tv.prix_unit)  as total , ((sum(tv.quantite*tv.prix_unit)* f.pourcentage)/100)  as finit ,
+        (sum(tv.quantite*tv.prix_unit) +  ((sum(tv.quantite*tv.prix_unit)* f.pourcentage)/100) ) as som');
+        $this->db->from('travaux_client tv');
+        $this->db->join('devis_client dc', 'dc.id_devis_client = tv.id_devis_client');
+        $this->db->join('sous_travaux st', 'tv.id_sous_travaux = st.id_sous_travaux');
+        $this->db->join('finition f', 'dc.id_finition = f.id_finition');
+        $this->db->where('tv.id_devis_client ', $devis);
+        $this->db->group_by('dc.id_finition,f.pourcentage');
+        $query = $this->db->get(); 
+        return $query->row(); 
+    }
     function somme($tableau) {
         $total = 0;
         foreach ($tableau as $valeur) {

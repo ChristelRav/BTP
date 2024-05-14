@@ -28,6 +28,7 @@ class CT_Devis extends CI_Controller
     public function detail(){
         $resultats = $this->MD_Travaux_Client->listDetail_Devis($_GET['devis']);
         $data['resultats'] = $resultats;
+        $data['som'] = $this->MD_Travaux_Client->sumMontant($_GET['devis']);
         $this->viewer('/v_detail_devis',$data);
     }
     public function insert(){
@@ -49,9 +50,10 @@ class CT_Devis extends CI_Controller
         $this->load->library('Tableau');
         $header = array('num', 'travaux', 'unite', 'quantite', 'prix_unit', 'total');
         $resultats = $this->MD_Travaux_Client->listDetail_Devis($_GET['devis']);
+        $som = $this->MD_Travaux_Client->sumMontant($_GET['devis']);
         $pdf = new Tableau();
         $pdf->AddPage();
-        $pdf->details($header,$resultats);
+        $pdf->details($header,$resultats,$som);
         $pdf->Output();
     }
     public function payer(){

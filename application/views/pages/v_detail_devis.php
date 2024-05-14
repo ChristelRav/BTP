@@ -1,5 +1,5 @@
 
-   
+<?php if(!isset($som)) $som = array(); ?>
 <?php if(!isset($detail)) $detail = array(); ?>
       <!-- partial -->
       <div class="main-panel">
@@ -22,30 +22,30 @@
                         </tr>
                       </thead>
                       <tbody>
-                          <?php   foreach ($resultats as $id_travaux => $details) { ?>
-                            <tr>
-                              <td><?php echo $details['num_travaux']; ?></td>
-                              <td><strong><?php echo $details['travaux']; ?></strong></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                            <?php   foreach ($details['details'] as $detail) { ?>
-                                      <td class="py-1"  ><?php echo  $detail['num_sous_travaux']; ?></td>
-                                      <td><?php echo  $detail['sous_travaux']; ?></td>
-                                      <td><?php echo $detail['unite']; ?></td>
-                                      <td><?php echo $detail['quantite']; ?></td>
-                                      <td><?php echo  number_format($detail['prix_unit'], 2, ',', ' '); ?></td>
-                                      <td><?php echo  number_format($detail['totalP'], 2, ',', ' '); ?></td>
+                            <?php   foreach ($resultats as $detail) { ?>
+                                      <td class="py-1"  ><?php echo  $detail->num_sous_travaux; ?></td>
+                                      <td><?php echo  $detail->sous_travaux; ?></td>
+                                      <td><?php echo $detail->unite; ?></td>
+                                      <td><?php echo $detail->quantite; ?></td>
+                                      <td><?php echo  number_format($detail->prix_unit, 2, ',', ' '); ?></td>
+                                      <td><?php echo  number_format($detail->total, 2, ',', ' '); ?></td>
                                     </tr>
                             <?php } ?>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total <?php echo $details['travaux']; ?></strong></td>
-                            <td><strong><?php echo number_format($details['total'], 2, ',', ' '); ?></strong></td>
-                          <?php } ?>
+                            <tr>
+                                      <th></th><th></th><th></th><th></th>
+                                      <th><Strong>somme devis</Strong></th>
+                                      <td><strong><?php echo $som->total; ?></strong></td>
+                            </tr>
+                            <tr>
+                                      <th></th><th></th><th></th><th></th>
+                                      <th><Strong>somme finition</Strong></th>
+                                      <td><strong><?php echo $som->finit; ?></strong></td>
+                            </tr>
+                            <tr>
+                                      <th></th><th></th><th></th><th></th>
+                                      <th><Strong>Total somme devis</Strong></th>
+                                      <td><strong><?php echo $som->som; ?></strong></td>
+                            </tr>
                       </tbody>
                     </table>
                   </div>

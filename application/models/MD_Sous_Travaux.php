@@ -7,12 +7,16 @@ class MD_Sous_Travaux extends CI_Model{
         return $query->row(); 
     }
     // TRAVAUX - SOUS_TRAVAUX
-    public function list($travaux){
+    public function list(){
         $this->db->select("*");
         $this->db->from('sous_travaux');
-        $this->db->where('id_travaux', $travaux);
         $query = $this->db->get();
         return $query->result();  
+    }
+    public function update($id,$num,$sst,$unite,$prix) {
+        $sql = "update sous_travaux set num_sous_travaux=%s ,  sous_travaux=%s  ,unite=%s ,  prix_unit=%s  where id_sous_travaux =%s";
+        $sql = sprintf($sql,$this->db->escape($num),$this->db->escape($sst),$this->db->escape($unite),$this->db->escape($prix),$this->db->escape($id));
+        $this->db->query($sql);
     }
 }
 ?>

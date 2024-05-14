@@ -27,7 +27,7 @@ class Tableau extends FPDF
         $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
     }
     // Tableau amélioré
-    function details($header, $resultats)
+    function details($header, $resultats,$val)
     {
         // Couleurs, epaisseur du trait et police grasse
         $this->SetFillColor(0,0,0);
@@ -46,32 +46,39 @@ class Tableau extends FPDF
         $this->SetTextColor(0);
         $this->SetFont('');
         // Donnees
-        foreach($resultats as $id_travaux => $details){
-            $this->Cell($w[0], 6, $details['num_travaux'], 'LR', 0);
-            $this->Cell($w[1], 6, $details['travaux'], 'LR', 0);
-            $this->Cell($w[2], 6, '', 'LR', 0);
-            $this->Cell($w[3], 6, '', 'LR', 0);
-            $this->Cell($w[4], 6, '', 'LR', 0);
-            $this->Cell($w[5], 6, '', 'LR', 0);
-            $this->Ln();
-            foreach ($details['details'] as $detail) {
-                $this->Cell($w[0], 6, $detail['num_sous_travaux'], 'LR', 0);
-                $this->Cell($w[1], 6, $detail['sous_travaux'], 'LR', 0, 'R');
-                $this->Cell($w[2], 6, $detail['unite'], 'LR', 0, 'R');
-                $this->Cell($w[3], 6, $detail['quantite'], 'LR', 0, 'R');
-                $this->Cell($w[4], 6,  number_format($detail['prix_unit'], 2, ',', ' '), 'LR', 0, 'R');
-                $this->Cell($w[5], 6, number_format($detail['totalP'], 2, ',', ' '), 'LR', 0, 'R');
+            foreach ($resultats as $detail) {
+                $this->Cell($w[0], 6, $detail->num_sous_travaux, 'LR', 0);
+                $this->Cell($w[1], 6, $detail->sous_travaux, 'LR', 0);
+                $this->Cell($w[2], 6, $detail->unite, 'LR', 0, 'R');
+                $this->Cell($w[3], 6, $detail->quantite, 'LR', 0, 'R');
+                $this->Cell($w[4], 6,  number_format($detail->prix_unit, 2, ',', ' '), 'LR', 0, 'R');
+                $this->Cell($w[5], 6, number_format($detail->total, 2, ',', ' '), 'LR', 0, 'R');
                 $this->Ln();
             }
-            $this->Cell($w[0], 6, '', 'LR', 0);
-            $this->Cell($w[1], 6, '', 'LR', 0);
-            $this->Cell($w[2], 6, '', 'LR', 0);
-            $this->Cell($w[3], 6, '', 'LR', 0);
-            $this->Cell($w[4], 6, 'Total '.$details['travaux'], 'LR', 0, 'R');
-            $this->Cell($w[5], 6, number_format($details['total'], 2, ',', ' '), 'LR', 0, 'R');
-            $this->Ln();
-        }
-
+        //
+        $this->Cell($w[0], 6, '', 'LR', 0);
+        $this->Cell($w[1], 6, '', 'LR', 0);
+        $this->Cell($w[2], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[3], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[4], 6,'Total Devis', '1', 0, 'R');
+        $this->Cell($w[5], 6, number_format($val->total, 2, ',', ' '), 'LR', 0, 'R');    
+        $this->Ln();
+        //
+        $this->Cell($w[0], 6, '', 'LR', 0);
+        $this->Cell($w[1], 6, '', 'LR', 0);
+        $this->Cell($w[2], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[3], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[4], 6,'Finition', '1', 0, 'R');
+        $this->Cell($w[5], 6, number_format($val->finit, 2, ',', ' '), 'LR', 0, 'R');    
+        $this->Ln();
+        //
+        $this->Cell($w[0], 6, '', 'LR', 0);
+        $this->Cell($w[1], 6, '', 'LR', 0);
+        $this->Cell($w[2], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[3], 6, '', 'LR', 0, 'R');
+        $this->Cell($w[4], 6,'Somme Total Devis', '1', 0, 'R');
+        $this->Cell($w[5], 6, number_format($val->som, 2, ',', ' '), 'LR', 0, 'R');    
+        $this->Ln();
         // Trait de terminaison
         $this->Cell(array_sum($w),0,'','T');
         $this->Ln(5);

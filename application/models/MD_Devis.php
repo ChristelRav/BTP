@@ -17,6 +17,12 @@ class MD_Devis extends CI_Model{
         $query = $this->db->get(); 
         return $query->result(); 
     }
+
+    public function update($id,$idss,$idm,$qtt) {
+        $sql = "update devis set id_sous_travaux=%s ,  id_maison=%s  ,quantite=%s   where id_devis=%s";
+        $sql = sprintf($sql,$this->db->escape($idss),$this->db->escape($idm),$this->db->escape($qtt),$this->db->escape($id));
+        $this->db->query($sql);
+    }
     
 }
 ?>

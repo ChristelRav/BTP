@@ -19,11 +19,13 @@
                             <th>Date_devis</th>
                             <th>type_maison</th>
                             <th>type_finition</th>
-                            <th>pourcentage(%)</th>
+                            <th>(%)</th>
                             <th>debut_travaux</th>
                             <th>fin_travaux</th>
-                            <th>Paiements effectués</th>
-                            <th>Total à payer</th>
+                            <th>Paye effectués</th>
+                            <th><strong>paiement(%)</strong></th>
+                            <th>Reste à payer</th>
+                            <th><strong>Total à payer</strong></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -36,6 +38,8 @@
                                   <td><?php echo $ld->date_debut; ?></td>
                                   <td><?php echo $ld->date_fin; ?></td>
                                   <td><?php echo number_format($ld->deja_payer, 2, ',', ' '); ?></td>
+                                  <td><?php echo number_format($ld->paiement, 2, ',', ' '); ?></td>
+                                  <td><?php echo number_format($ld->reste_a_payer, 2, ',', ' '); ?></td>
                                   <td><?php echo number_format($ld->ttl, 2, ',', ' '); ?></td>
                             </tr>
                         <?php } ?>

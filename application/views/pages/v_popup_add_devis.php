@@ -1,4 +1,4 @@
-<div id="shadow" class="overlay" onclick="closePopup()"></div>
+<div id="shadow" class="overlay" onclick="closePopupUT()"></div>
     <div id="popup" class="popup">
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
