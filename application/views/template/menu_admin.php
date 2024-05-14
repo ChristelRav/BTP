@@ -8,10 +8,17 @@
           <span></span>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('CT_Tableau/dashboard')?>">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Tableau de bord</span>
+            <div class="badge badge-info badge-pill"></div>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('CT_Tableau/index_Admin')?>">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Devis</span>
-            <div class="badge badge-info badge-pill">2</div>
+            <div class="badge badge-info badge-pill"></div>
           </a>
         </li>
         <li class="nav-item">

@@ -36,7 +36,7 @@ class CT_Devis extends CI_Controller
         $finition =  $this->MD_Finition->getOne($_POST['finition']);
         $maison = $this->MD_Maison->getOne($_POST['id']);  //echo 'J- '.$maison->duree;
         $dateF = $this->MD_Devis_Client->ajoutJours($_POST['db'], $maison->duree); //echo 'DATE  = '.$finition->pourcentage;
-        $this->MD_Devis_Client->insert($_SESSION['client'][0]['id_client'],'D002',$_POST['lieu'],$_POST['id'],$_POST['finition'],$_POST['dc'],$_POST['db'],$dateF,$finition->pourcentage);
+        $this->MD_Devis_Client->insertS($_SESSION['client'][0]['id_client'],$_POST['lieu'],$_POST['id'],$_POST['finition'],$_POST['dc'],$_POST['db'],$dateF,$finition->pourcentage);
        
         
         $last = $this->MD_Devis_Client->getNewDevis_Client($_SESSION['client'][0]['id_client']);

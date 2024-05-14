@@ -31,6 +31,15 @@ class MD_Devis_Client extends CI_Model{
         $insert_id = $this->db->insert_id();
         return $this->getOne($insert_id);
     }
+    public function inserts($id_client,$lieu,$id_maison, $id_finition,$date_creation, $date_debut, $date_fin,$pourcentage) {
+        $sql = "insert into devis_client (id_client,lieu, id_maison, id_finition,date_creation, date_debut, date_fin,pourcentage) values ( %s, %s, %s, %s, %s, %s, %s, %s) ";
+        $sql = sprintf($sql,$this->db->escape($id_client),$this->db->escape($lieu),$this->db->escape($id_maison),$this->db->escape($id_finition),$this->db->escape($date_creation),$this->db->escape($date_debut),$this->db->escape($date_fin),$this->db->escape($pourcentage));
+        echo $this->db->last_query();
+        $this->db->query($sql);
+        echo $this->db->last_query();
+        $insert_id = $this->db->insert_id();
+        return $this->getOne($insert_id);
+    }
     function ajoutJours($date, $nombre_jours) {
         $date_obj = new DateTime($date);
         $date_obj->modify('+' . $nombre_jours . ' days');
@@ -46,7 +55,7 @@ class MD_Devis_Client extends CI_Model{
         return $query->row(); 
     }
     public function listDevis_Client_Ttl($client){
-        $this->db->select("dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,dc.etat,
+        $this->db->select("dc.id_devis_client,dc.ref_devis, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin, dc.pourcentage,dc.etat,
         SUM(tc.quantite * tc.prix_unit) as total,(SUM(tc.quantite * tc.prix_unit) + (SUM(tc.quantite * tc.prix_unit)*dc.pourcentage)/100) as ttl ");
         $this->db->from('devis_client dc');
         $this->db->join('travaux_client tc', 'tc.id_devis_client = dc.id_devis_client');
@@ -54,7 +63,7 @@ class MD_Devis_Client extends CI_Model{
         $this->db->join('client c', 'dc.id_client = c.id_client');
         $this->db->join('finition f', 'dc.id_finition = f.id_finition');
         $this->db->where('dc.id_client', $client);
-        $this->db->group_by('dc.id_devis_client, dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin');
+        $this->db->group_by('dc.id_devis_client,dc.ref_devis,  dc.date_creation, m.type_maison, f.type_finition, dc.date_debut, dc.date_fin');
         $query = $this->db->get();
         return $query->result();  
     }

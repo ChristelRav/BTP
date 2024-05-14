@@ -21,7 +21,7 @@
                     <input type="hidden" name="reste" value="<?php echo $reste;?>">
                     <div class="form-group">
                       <label for="exampleInputUsername1">Montant</label>
-                      <input type="number" min="0"  id="amount" name="amount" class="form-control" id="exampleInputUsername1" placeholder="montant">
+                      <input type="number" min="0" step="0.01"  id="amount" name="amount" class="form-control" id="exampleInputUsername1" placeholder="montant">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Date</label>
@@ -37,8 +37,8 @@
                   <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Liste de Paiememnt</h4>
-                          <p>Total à payer :   <?php echo $ttl; ?> Ar</p>
-                          <p>Reste à payer :   <?php echo $reste; ?> Ar</p>
+                          <p>Total à payer :   <?php echo number_format($ttl, 2, ',', ' '); ?> Ar</p>
+                          <p>Reste à payer :   <?php echo number_format($reste, 2, ',', ' '); ?> Ar</p>
                           <p class="card-description">
                               Total<code>.Paiement</code>
                           </p>
@@ -46,14 +46,16 @@
                               <table class="table">
                                   <thead>
                                       <tr>
-                                          <th>Montant(Ar)</th>
                                           <th>Date de paiement </th>
+                                          <th>Ref_paiement</th>
+                                          <th>Montant(Ar)</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                   <?php foreach ($paiement as $p) { ?>
                                       <tr>
                                           <td><?php echo  number_format($p->montant, 2, ',', ' '); ?></td>
+                                          <td><?php echo $p->ref_paiement; ?></td>
                                           <td><?php echo $p->date_paiement; ?></td>
                                       </tr>
                                   <?php } ?>

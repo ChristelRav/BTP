@@ -27,7 +27,7 @@ class CT_Payer extends CI_Controller
                 echo json_encode(['error' => 'Le montant ne peut pas être supérieur au reste.']);
                 return; // Arrête l'exécution du script
             } else{
-                $this->MD_Paiement->insert('REP5467', $devis, $amount, $date->format('Y-m-d'));
+                $this->MD_Paiement->insertS( $devis, $amount, $date->format('Y-m-d'));
                 echo json_encode(['error' => 'Paiement enregistré.']);
                 return;
             }

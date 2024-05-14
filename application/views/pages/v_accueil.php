@@ -16,10 +16,11 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
+                            <th>Ref_devis</th>
                             <th>Date_devis</th>
                             <th>type_maison</th>
                             <th>type_finition</th>
-                            <th>pourcentage(%)</th>
+                            <th>(%)</th>
                             <th>debut_travaux</th>
                             <th>fin_travaux</th>
                             <th>Total à payer</th>
@@ -29,7 +30,8 @@
                       <tbody>
                       <?php foreach ($listDevis as $ld) { ?>
                         <tr>
-                            <td class="py-1"  ><a href="<?php echo site_url('CT_Devis/detail'); ?>?devis=<?php echo $ld->id_devis_client; ?> "><?php echo $ld->date_creation; ?></a></td>
+                            <td class="py-1"  ><a href="<?php echo site_url('CT_Devis/detail'); ?>?devis=<?php echo $ld->id_devis_client; ?> "><?php echo $ld->ref_devis; ?></a></td>
+                                  <td><?php echo $ld->date_creation; ?></td>
                                   <td><?php echo $ld->type_maison; ?></td>
                                   <td><?php echo $ld->type_finition; ?></td>
                                   <td><?php echo $ld->pourcentage; ?></td>

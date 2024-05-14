@@ -3,6 +3,8 @@ CREATE DATABASE abdd;
 GRANT ALL PRIVILEGES ON DATABASE abdd TO abddu;
 
 psql -U abddu -d abdd
+create sequence  seqDevis increment by 1;
+create sequence  seqPaye increment by 1;
 
 CREATE TABLE client (
     id_client SERIAL PRIMARY KEY,
@@ -46,7 +48,7 @@ CREATE TABLE devis (
 
 CREATE TABLE devis_client (
     id_devis_client SERIAL PRIMARY KEY,
-    ref_devis VARCHAR(30),  --MODIF
+    ref_devis VARCHAR(30) default(concat('D',nextval('seqDevis'))),  --MODIF
     lieu VARCHAR(100),
     id_client INT REFERENCES client(id_client),
     id_maison INT REFERENCES maison(id_maison),
@@ -74,7 +76,7 @@ CREATE TABLE devis_admin (
 
 CREATE TABLE paiement (
     id_paiement SERIAL PRIMARY KEY,
-    ref_paiement VARCHAR(30),
+    ref_paiement VARCHAR(30)  default(concat('P',nextval('seqPaye'))),
     id_devis_client INT REFERENCES devis_client(id_devis_client),
     montant DOUBLE PRECISION,
     date_paiement DATE

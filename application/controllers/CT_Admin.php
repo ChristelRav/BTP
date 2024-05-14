@@ -32,5 +32,9 @@ class CT_Admin extends CI_Controller
         $this->session->unset_userdata('admin');
         redirect('CT_Admin/');
     }
+    public function truncate_tables() {
+        $this->MD_Admin->truncate_all_tables();
+        redirect('CT_Admin/');
+    }
 }
 ?>

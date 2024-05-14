@@ -66,6 +66,9 @@
                 <div class="my-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
                 </div>
+                <div class="my-3">
+                  <a class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn" href="<?php echo site_url('CT_Admin/truncate_tables')?>"  type="submit">REINITIALISE</a>
+                </div>
                 <div class="text-center mt-4 font-weight-light">
                   Log in Customer? <a href="<?php echo site_url('CT_Client/')?>" class="text-primary">Connect</a>
                 </div>
