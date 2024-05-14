@@ -31,14 +31,14 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                 <img src="<?php echo base_url("assets/images/faces/face5.jpg"); ?>" alt="profile"/>
-                <span class="nav-profile-name"><?php echo $_SESSION['client'][0]['contact'];?></span>
+                <span class="nav-profile-name"><?php echo $_SESSION['admin'][0]['email'];?></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 <a class="dropdown-item">
                   <i class="mdi mdi-settings text-primary"></i>
                   Settings
                 </a>
-                <a class="dropdown-item" href="<?php echo site_url('CT_Client/deconnect')?>">
+                <a class="dropdown-item" href="<?php echo site_url('CT_Admin/deconnect')?>">
                   <i class="mdi mdi-logout text-primary"></i>
                   Logout
                 </a>

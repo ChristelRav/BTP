@@ -4,7 +4,7 @@ class MD_Client extends CI_Model{
     public function getOne($id) {
         $this->db->where('id_client', $id);
         $query = $this->db->get('client'); 
-        return $query->row(); 
+        return $query->result_array(); 
     }
     public function insert($contact) {
         $sql = "insert into client (contact) values (%s) ";

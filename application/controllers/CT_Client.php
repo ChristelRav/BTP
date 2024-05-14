@@ -22,13 +22,14 @@ class CT_Client extends CI_Controller
             $this->session->set_userdata('client', $client);
         }
         else{
-           $this->MD_Client->insert($contact);
+           $user = $this->MD_Client->insert($contact);
+           $this->session->set_userdata('client', $user);
         }
         redirect('CT_Accueil');
     }
     public function deconnect()	{
         $this->session->unset_userdata('client');
-        redirect('CT_Client/');
+        redirect('CT_Client/index');
     }
 }
 ?>

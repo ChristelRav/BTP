@@ -82,9 +82,9 @@ $(document).ready(function(){
             success: function(response){
                 if(response.error){
                     alert(response.error); // Affiche l'erreur
-                } else {
-                    alert(response.error); 
-                    window.location.href = "<?php echo site_url('CT_Payer/success');?>";
+                } else{
+                    // alert(response.error); 
+                    window.location.href = "<?php echo site_url('CT_Accueil');?>";
                 }
             },
             error: function(xhr, status, error){

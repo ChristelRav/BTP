@@ -243,21 +243,20 @@ DELETE FROM admin;
 DELETE FROM client;
 
 ---DROP TABLE
+DROP VIEW v_dash_devis;
+DROP VIEW v_devis_attente;
+DROP VIEW v_devis_admin;
+
 
 DROP TABLE temp3;
 DROP TABLE temp2;
 DROP TABLE temp1;
-DROP VIEW v_dash_devis;
-DROP VIEW v_devis_attente;
-DROP VIEW v_devis_admin;
 DROP TABLE travaux_client;
-DROP TABLE devis_client;
 DROP TABLE paiement;
 DROP TABLE devis_admin;
 DROP TABLE devis;
+DROP TABLE devis_client;
 DROP TABLE sous_travaux;
-
-DROP TABLE travaux;
 DROP TABLE finition;
 DROP TABLE maison;
 DROP TABLE admin;

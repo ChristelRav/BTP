@@ -58,12 +58,10 @@ class CT_Devis extends CI_Controller
     }
     public function payer(){
         $data = array();
-        if($this->input->get('error') != null  )
-        {
-            $data['error'] = $this->input->get('error');
-        }
         $data['devis'] = $_GET['devis'];
-        $data['ttl'] = $_GET['ttl'];  $r = $this->MD_Paiement->getReste($_GET['devis']); $reste = $r->reste;
+        $data['ttl'] = $_GET['ttl'];  
+        $r = $this->MD_Paiement->getReste($_GET['devis']); 
+        $reste = $r->reste;
         $data['reste'] =  $data['ttl'] - $reste;
         $data['paiement'] =   $this->MD_Paiement->listPayer_Devis($_GET['devis']);
         $this->viewer('/v_payer',$data);
